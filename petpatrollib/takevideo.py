@@ -1,0 +1,2 @@
+def takevideo():
+    return True

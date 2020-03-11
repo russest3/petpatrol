@@ -1,4 +1,9 @@
-from move import moveit
+# Requires:
+# - sudo apt-get install vlc python3-rpi.gpio python3-pip
+# - sudo pip3 install psutil
+
+#!/usr/bin/env python3
+
 import os
 import sys
 
@@ -11,7 +16,8 @@ def main():
 
     print("m,M.    MOVE!")
     print("p,P.    TAKE PHOTO!")
-    print("v,V.    TAKE VIDEO!")
+    print("v,V.    RECORD VIDEO!")
+    print("s,S.    STREAM VIDEO!")
     print("e,E     I\'m done, exit.")
     choice = str(input("> "))
 
@@ -23,12 +29,14 @@ def main():
       moveit()
 
     if choice == "p" or choice == "P":
-      takephoto.takephoto()
+      takephoto()
 
     if choice == "v" or choice == "V":
-      takevid.takevid()
+      takevid()
+    
+    if choice == "s" or choice == "S":
+      streamvideo()
     
     continue
 
-if __name__ == "__main__":
-    main()
+
