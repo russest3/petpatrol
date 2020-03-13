@@ -1,7 +1,7 @@
 import os
 import psutil
 
-PROCNAME = 'raspivid'
+PROCNAME = 'motion'
 
 def checkIfProcessRunning(processName):
     '''
@@ -25,8 +25,8 @@ def streamvideo():
     if answer == "y" or answer == "Y":
       for proc in psutil.process_iter():
         if proc.name() == PROCNAME:
-          proc.kill()
-    alreadystoppedit = True
+          os.system("sudo service motion stop")
+          running = False
   else:
     running = False
 
@@ -34,7 +34,7 @@ def streamvideo():
     print("Start video streaming? (y/n)")
     _start = str(input("> "))
     if _start == "y" or _start == "Y":
-      os.system("nohup raspivid -o - -t 0 -n -w 640 -h 480 | cvlc -vvv stream:///dev/stdin --sout '#rtp{sdp=rtsp://:8554/}' :demux=h264 > videostreaming.log 2>&1 &")
+      os.system("sudo service motion start")
     
     if checkIfProcessRunning('raspivid'):
       print("Video streaming has started")
@@ -42,9 +42,3 @@ def streamvideo():
     else:
       print("Streaming service failed to start.")
       return False
-
-
-
-
-
-
